@@ -2,59 +2,50 @@ package ar.com.vault.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 /**
  * Created by alejandro on 16/11/18.
  */
-@Entity(name = "REGIONS")
+@Entity(name = "JOB_HISTORY")
 public class JobHistory {
 
-    @ManyToOne
-    @NotNull
-    @Column(name = "EMPLOYEE_ID")
-    private Employee employee;
-
-    @ApiModelProperty(notes = "La fecha de inicio", required = true)
-    @NotNull
-    @Column(name = "START_DATE", nullable = false)
-    private Date startDate;
+    @EmbeddedId
+    private JobHistoryID id;
 
     @ApiModelProperty(notes = "La fecha de fin", required = true)
     @NotNull
-    @Column(name = "END_DATE", nullable = false)
+    @Column(name = "END_DATE")
     private Date endDate;
 
     @ManyToOne
     @NotNull
-    @Column(name = "JOB_ID")
+    @JoinColumn(name="JOB_ID", nullable=false)
     private Job job;
 
     @ManyToOne
-    @Column(name = "DEPARTMENT_ID")
+    @JoinColumn(name="DEPARTMENT_ID")
     private Department department;
 
     public JobHistory() {
     }
 
     public Employee getEmployee() {
-        return employee;
+        return this.id.getEmployee();
     }
 
     public void setEmployee(Employee employee) {
-        this.employee = employee;
+        this.id.setEmployee(employee);
     }
 
     public Date getStartDate() {
-        return startDate;
+        return this.id.getStartDate();
     }
 
     public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+        this.id.setStartDate(startDate);
     }
 
     public Date getEndDate() {

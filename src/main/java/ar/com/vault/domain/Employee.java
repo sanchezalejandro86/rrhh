@@ -1,7 +1,6 @@
 package ar.com.vault.domain;
 
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -51,16 +50,16 @@ public class Employee {
     private Double commisionPct;
 
     @ManyToOne
-    @Column(name = "MANAGER_ID")
+    @JoinColumn(name="MANAGER_ID")
     private Employee manager;
 
     @ManyToOne
     @NotNull
-    @Column(name = "JOB_ID", nullable = false)
+    @JoinColumn(name="JOB_ID", nullable=false)
     private Job job;
 
     @ManyToOne
-    @Column(name = "DEPARTMENT_ID")
+    @JoinColumn(name="DEPARTMENT_ID")
     private Department department;
 
     public Employee(){

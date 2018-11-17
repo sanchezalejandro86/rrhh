@@ -1,10 +1,8 @@
 package ar.com.vault.domain;
 
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -15,7 +13,7 @@ public class Job {
 
     @ApiModelProperty(notes = "Id del trabajo")
     @Id
-    @Column(name = "EMPLOYEE_ID", length = 10)
+    @Column(name = "JOB_ID")
     private String id;
 
     @ApiModelProperty(notes = "El título del trabajo")

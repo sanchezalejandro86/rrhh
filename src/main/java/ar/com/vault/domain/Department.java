@@ -1,11 +1,8 @@
 package ar.com.vault.domain;
 
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -16,6 +13,7 @@ public class Department {
 
     @ApiModelProperty(notes = "Id del departamento")
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "DEPARTMENT_ID")
     private Long id;
 
@@ -25,11 +23,11 @@ public class Department {
     private String name;
 
     @ManyToOne
-    @Column(name = "MANAGER_ID")
+    @JoinColumn(name="MANAGER_ID")
     private Employee manager;
 
     @ManyToOne
-    @Column(name = "LOCATION_ID")
+    @JoinColumn(name="LOCATION_ID")
     private Location location;
 
     public Department() {

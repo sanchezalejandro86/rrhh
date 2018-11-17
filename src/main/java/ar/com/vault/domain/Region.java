@@ -1,10 +1,10 @@
 package ar.com.vault.domain;
 
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * Created by alejandro on 16/11/18.

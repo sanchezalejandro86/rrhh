@@ -1,11 +1,8 @@
 package ar.com.vault.domain;
 
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -16,6 +13,7 @@ public class Location {
 
     @ApiModelProperty(notes = "Id de la ubicación")
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "LOCATION_ID")
     private Long id;
 
@@ -33,7 +31,7 @@ public class Location {
     private String stateProvince;
 
     @ManyToOne
-    @Column(name = "COUNTRY_ID")
+    @JoinColumn(name="COUNTRY_ID")
     private Country country;
 
     public Location() {

@@ -1,12 +1,8 @@
 package ar.com.vault.domain;
 
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 
 /**
  * Created by alejandro on 16/11/18.
@@ -24,7 +20,7 @@ public class Country {
     private String name;
 
     @ManyToOne
-    @Column(name = "REGION_ID")
+    @JoinColumn(name="REGION_ID")
     private Region region;
 
     public Country() {
