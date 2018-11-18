@@ -1,5 +1,6 @@
 package ar.com.vault.controller;
 
+import ar.com.vault.domain.Department;
 import ar.com.vault.domain.Employee;
 import ar.com.vault.dto.DepartmentClientDto;
 import ar.com.vault.service.DepartmentService;
@@ -36,7 +37,7 @@ public class DepartmentController {
     })
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/", method = RequestMethod.POST)
-    public Employee create(@Valid @RequestBody DepartmentClientDto departmentDto) {
+    public Department create(@Valid @RequestBody DepartmentClientDto departmentDto) {
         return this.departmentService.save(departmentDto);
     }
 

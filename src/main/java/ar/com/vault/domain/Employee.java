@@ -2,6 +2,8 @@ package ar.com.vault.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
@@ -51,6 +53,7 @@ public class Employee {
 
     @ManyToOne
     @JoinColumn(name="MANAGER_ID")
+//    @JsonBackReference
     private Employee manager;
 
     @ManyToOne
