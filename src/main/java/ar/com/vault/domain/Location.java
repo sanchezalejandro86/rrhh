@@ -13,7 +13,7 @@ public class Location {
 
     @ApiModelProperty(notes = "Id de la ubicación")
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "LOCATION_ID")
     private Long id;
 
@@ -33,6 +33,13 @@ public class Location {
     @ManyToOne
     @JoinColumn(name="COUNTRY_ID")
     private Country country;
+
+    public Location(String streetAddress, @NotNull String city, String stateProvince, Country country) {
+        this.streetAddress = streetAddress;
+        this.city = city;
+        this.stateProvince = stateProvince;
+        this.country = country;
+    }
 
     public Location() {
     }

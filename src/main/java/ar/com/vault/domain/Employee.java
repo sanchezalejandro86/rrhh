@@ -3,7 +3,6 @@ package ar.com.vault.domain;
 import io.swagger.annotations.ApiModelProperty;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
@@ -16,7 +15,7 @@ public class Employee {
 
     @ApiModelProperty(notes = "Id del empleado")
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EMPLOYEE_ID")
     private Long id;
 
@@ -53,7 +52,6 @@ public class Employee {
 
     @ManyToOne
     @JoinColumn(name="MANAGER_ID")
-//    @JsonBackReference
     private Employee manager;
 
     @ManyToOne
@@ -63,7 +61,21 @@ public class Employee {
 
     @ManyToOne
     @JoinColumn(name="DEPARTMENT_ID")
+    @JsonBackReference
     private Department department;
+
+    public Employee(String firstname, @NotNull String lastname, @NotNull String email, String phoneNumber, @NotNull Date hireDate, Double salary, Double commisionPct, Employee manager, @NotNull Job job, Department department) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.hireDate = hireDate;
+        this.salary = salary;
+        this.commisionPct = commisionPct;
+        this.manager = manager;
+        this.job = job;
+        this.department = department;
+    }
 
     public Employee(){
     }

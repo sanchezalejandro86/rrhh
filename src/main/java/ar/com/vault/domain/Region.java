@@ -2,9 +2,7 @@ package ar.com.vault.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by alejandro on 16/11/18.
@@ -14,17 +12,22 @@ public class Region {
 
     @ApiModelProperty(notes = "Id de la región")
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "REGION_ID")
-    private String id;
+    private Long id;
 
     @ApiModelProperty(notes = "El nombre de la región")
     @Column(name = "REGION_NAME", length = 25)
     private String name;
 
+    public Region(String name) {
+        this.name = name;
+    }
+
     public Region() {
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 

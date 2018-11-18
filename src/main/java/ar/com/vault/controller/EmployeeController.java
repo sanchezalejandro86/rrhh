@@ -53,7 +53,7 @@ public class EmployeeController {
             @ApiResponse(code = 500, message = "Error interno")
     })
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path = "/", method = RequestMethod.POST)
+    @RequestMapping(path = "", method = RequestMethod.POST)
     public Employee create(@Valid @RequestBody EmployeeClientDto employeeDto) {
         return this.employeeService.save(employeeDto);
     }
@@ -95,7 +95,7 @@ public class EmployeeController {
             @ApiResponse(code = 500, message = "Error interno")
     })
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(path = "/", params = { "job_id", "manager_id", "lastname", "page", "size" }, method = RequestMethod.GET)
+    @RequestMapping(path = "", params = { "job_id", "manager_id", "lastname", "page", "size" }, method = RequestMethod.GET)
     public Page<Employee> search(@RequestParam("job_id") String jobId,
                                  @RequestParam("manager_id") Long managerId,
                                  @RequestParam("lastname") String lastname,

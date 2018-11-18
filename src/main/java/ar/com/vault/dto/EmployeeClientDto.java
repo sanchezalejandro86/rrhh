@@ -2,12 +2,11 @@ package ar.com.vault.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 /**
- * Created by alejandro on 23/04/18.
+ * Created by alejandro on 17/11/18.
  */
 public class EmployeeClientDto {
     @ApiModelProperty(notes = "El nombre del empleado")
@@ -34,7 +33,10 @@ public class EmployeeClientDto {
     @ApiModelProperty(notes = "El email del empleado", required = true)
     private Double commisionPct;
 
-    public EmployeeClientDto(String firstname, @NotNull String lastname, @NotNull String email, String phoneNumber, @NotNull Date hireDate, Double salary, Double commisionPct) {
+    @ApiModelProperty(notes = "El Id del Job", required = true)
+    private String jobId;
+
+    public EmployeeClientDto(String firstname, @NotNull String lastname, @NotNull String email, String phoneNumber, @NotNull Date hireDate, Double salary, Double commisionPct, String jobId) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -42,6 +44,7 @@ public class EmployeeClientDto {
         this.hireDate = hireDate;
         this.salary = salary;
         this.commisionPct = commisionPct;
+        this.jobId = jobId;
     }
 
     public EmployeeClientDto(){
@@ -101,5 +104,13 @@ public class EmployeeClientDto {
 
     public void setCommisionPct(Double commisionPct) {
         this.commisionPct = commisionPct;
+    }
+
+    public String getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
     }
 }

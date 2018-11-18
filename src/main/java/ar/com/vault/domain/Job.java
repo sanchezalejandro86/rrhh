@@ -29,6 +29,13 @@ public class Job {
     @Column(name = "MAX_SALARY")
     private Double maxSalary;
 
+    public Job(String id, @NotNull String title, Double minSalary, Double maxSalary) {
+        this.id = id;
+        this.title = title;
+        this.minSalary = minSalary;
+        this.maxSalary = maxSalary;
+    }
+
     public Job() {
     }
 

@@ -2,8 +2,11 @@ package ar.com.vault.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * Created by alejandro on 16/11/18.
@@ -13,7 +16,7 @@ public class Department {
 
     @ApiModelProperty(notes = "Id del departamento")
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "DEPARTMENT_ID")
     private Long id;
 
@@ -29,6 +32,16 @@ public class Department {
     @ManyToOne
     @JoinColumn(name="LOCATION_ID")
     private Location location;
+
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "department")
+    @JsonManagedReference
+    List<Employee> employees;
+
+    public Department(@NotNull String name, Employee manager, Location location) {
+        this.name = name;
+        this.manager = manager;
+        this.location = location;
+    }
 
     public Department() {
     }
@@ -59,5 +72,13 @@ public class Department {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 }

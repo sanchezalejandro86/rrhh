@@ -21,6 +21,9 @@ public class DepartmentClientDto {
         this.locationId = locationId;
     }
 
+    public DepartmentClientDto() {
+    }
+
     public String getName() {
         return name;
     }

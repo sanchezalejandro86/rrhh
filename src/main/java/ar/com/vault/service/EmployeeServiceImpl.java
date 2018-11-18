@@ -5,6 +5,7 @@ import ar.com.vault.dto.EmployeeClientDto;
 import ar.com.vault.dto.EmployeeDTO;
 import ar.com.vault.exception.DomainEntityNotFound;
 import ar.com.vault.repository.EmployeeRepository;
+import ar.com.vault.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -17,16 +18,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by alejandro on 23/04/18.
+ * Created by alejandro on 17/11/18.
  */
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
 
+    private final JobRepository jobRepository;
+
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, JobRepository jobRepository) {
         this.employeeRepository = employeeRepository;
+        this.jobRepository = jobRepository;
     }
 
     @Override
@@ -96,6 +100,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setHireDate(dto.getHireDate());
         employee.setSalary(dto.getSalary());
         employee.setCommisionPct(dto.getCommisionPct());
+
+        employee.setJob(this.jobRepository.findById(dto.getJobId()).get());
 
         return employee;
     }

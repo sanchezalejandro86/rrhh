@@ -36,7 +36,7 @@ public class DepartmentController {
             @ApiResponse(code = 500, message = "Error interno")
     })
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path = "/", method = RequestMethod.POST)
+    @RequestMapping(path = "", method = RequestMethod.POST)
     public Department create(@Valid @RequestBody DepartmentClientDto departmentDto) {
         return this.departmentService.save(departmentDto);
     }
