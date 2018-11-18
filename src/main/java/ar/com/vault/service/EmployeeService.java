@@ -11,7 +11,7 @@ import javax.validation.Valid;
  * Created by alejandro on 23/04/18.
  */
 public interface EmployeeService {
-    Employee save(@Valid EmployeeClientDto cartClientDto);
+    Employee save(@Valid EmployeeClientDto employeeClientDto);
 
     Employee save(@Valid Employee cart);
 

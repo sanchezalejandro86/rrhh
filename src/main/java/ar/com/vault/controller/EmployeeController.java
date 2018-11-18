@@ -67,7 +67,7 @@ public class EmployeeController {
             @ApiResponse(code = 500, message = "Error interno")
     })
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path = "/{employeeId}", method = RequestMethod.POST)
+    @RequestMapping(path = "/{employeeId}", method = RequestMethod.PUT)
     public Employee update(@PathVariable Long employeeId, @Valid @RequestBody EmployeeClientDto employeeDto) {
         return this.employeeService.update(employeeId, employeeDto);
     }
