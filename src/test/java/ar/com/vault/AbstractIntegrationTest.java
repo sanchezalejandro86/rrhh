@@ -88,13 +88,13 @@ public abstract class AbstractIntegrationTest {
         //Insert initial values
         Region r1 = this.regionRepository.save(new Region("Sudamérica"));
         Country c1 = this.countryRepository.save(new Country("AR", "Argentina", r1));
-        Location l1 = this.locationRepository.save(new Location("Av. Alberdi 140", "CABA", "CABA", c1));
+        Location l1 = this.locationRepository.save(new Location("Av. Alberdi 140", "1424", "CABA", "CABA", c1));
         Department d1 = this.departmentRepository.save(new Department("Desarrollo", null, l1));
-        Job j1 = this.jobRepository.save(new Job("TECH-LEAD", "Líder Técnico", 800d, 1000d));
-        Employee e1 = this.employeeRepository.save(new Employee("Jorge", "Mansaro", "jorge@gmail.com", "1564646464", new Date(118, 11, 1), 1000d, 1d, null, j1, d1));
+        Job j1 = this.jobRepository.save(new Job("TECH-LEAD", "Líder Técnico", 100d, 1000d));
+        Employee e1 = this.employeeRepository.save(new Employee("Jorge", "Mansaro", "jorge@gmail.com", "1564646464", new Date(118, 11, 1), 100d, 1d, null, j1, d1));
 
-        Job j2 = this.jobRepository.save(new Job("DEV-SR", "Desarrollador SR", 500d, 700d));
-        Employee e2 = this.employeeRepository.save(new Employee("Juan", "Perez", "jperez@gmail.com", "1533333333", new Date(115, 11, 1), 650d, 1d, e1, j2, d1));
+        Job j2 = this.jobRepository.save(new Job("DEV-SR", "Desarrollador SR", 200d, 700d));
+        Employee e2 = this.employeeRepository.save(new Employee("Juan", "Perez", "jperez@gmail.com", "1533333333", new Date(115, 11, 1), 200d, 1d, e1, j2, d1));
     }
 
     @After

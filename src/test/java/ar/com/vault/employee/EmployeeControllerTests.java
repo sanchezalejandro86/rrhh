@@ -1,13 +1,11 @@
 package ar.com.vault.employee;
 
 import ar.com.vault.AbstractIntegrationTest;
-import ar.com.vault.domain.*;
+import ar.com.vault.domain.Department;
+import ar.com.vault.domain.Employee;
+import ar.com.vault.domain.Job;
 import ar.com.vault.dto.EmployeeClientDto;
-import ar.com.vault.repository.*;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Date;
 import java.util.Iterator;
@@ -33,7 +31,9 @@ public class EmployeeControllerTests extends AbstractIntegrationTest {
                 new Date(118, 11, 18),
                 1000d,
                 1d,
-                "TECH-LEAD"
+                "TECH-LEAD",
+                null,
+                1L
                 );
         String cartJson = json(dto);
 
@@ -47,7 +47,6 @@ public class EmployeeControllerTests extends AbstractIntegrationTest {
                 .andExpect(jsonPath("$.lastname", is(dto.getLastname())))
                 .andExpect(jsonPath("$.email", is(dto.getEmail())))
                 .andExpect(jsonPath("$.phoneNumber", is(dto.getPhoneNumber())))
-//                .andExpect(jsonPath("$.hireDate", is(dto.getHireDate())))
                 .andExpect(jsonPath("$.salary", is(dto.getSalary())))
                 .andExpect(jsonPath("$.commisionPct", is(dto.getCommisionPct())))
         ;
@@ -55,7 +54,7 @@ public class EmployeeControllerTests extends AbstractIntegrationTest {
 
     @Test
     public void updateAnOldOne() throws Exception {
-        long updatedId = this.employeeRepository.findAll().iterator().next().getId();
+        Long updatedId = this.employeeRepository.findAll().iterator().next().getId();
 
         EmployeeClientDto dto = new EmployeeClientDto(
                 "Ramon",
@@ -65,7 +64,9 @@ public class EmployeeControllerTests extends AbstractIntegrationTest {
                 new Date(115, 11, 18),
                 3000d,
                 4d,
-                "DEV-SR"
+                "DEV-SR",
+                null,
+                1L
         );
         String cartJson = json(dto);
 
@@ -74,12 +75,11 @@ public class EmployeeControllerTests extends AbstractIntegrationTest {
                 put("/employees/" + updatedId)
                         .contentType(contentType).content(cartJson))
                 .andExpect(status().isCreated())
-//                .andExpect(jsonPath("$.id", is(updatedId)))
+                .andExpect(jsonPath("$.id", is(updatedId.intValue())))
                 .andExpect(jsonPath("$.firstname", is(dto.getFirstname())))
                 .andExpect(jsonPath("$.lastname", is(dto.getLastname())))
                 .andExpect(jsonPath("$.email", is(dto.getEmail())))
                 .andExpect(jsonPath("$.phoneNumber", is(dto.getPhoneNumber())))
-//                .andExpect(jsonPath("$.hireDate", is(dto.getHireDate())))
                 .andExpect(jsonPath("$.salary", is(dto.getSalary())))
                 .andExpect(jsonPath("$.commisionPct", is(dto.getCommisionPct())))
         ;
@@ -116,11 +116,11 @@ public class EmployeeControllerTests extends AbstractIntegrationTest {
                 get("/employees?job_id="+employeeToSearch.getJob().getId() +
                         "&manager_id="+employeeToSearch.getManager().getId()+
                         "&lastname="+employeeToSearch.getLastname()+
-                        "&page=1&size=1"))
+                        "&page=0&size=10"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalElements", is(1)))
                 .andExpect(jsonPath("$.totalPages", is(1)))
-                .andExpect(jsonPath("$.content[0].id", is(employeeToSearch.getId())))
+                .andExpect(jsonPath("$.content[0].id", is(employeeToSearch.getId().intValue())))
         ;
     }
 

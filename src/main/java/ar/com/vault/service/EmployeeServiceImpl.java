@@ -1,9 +1,12 @@
 package ar.com.vault.service;
 
+import ar.com.vault.domain.Department;
 import ar.com.vault.domain.Employee;
+import ar.com.vault.domain.Job;
 import ar.com.vault.dto.EmployeeClientDto;
 import ar.com.vault.dto.EmployeeDTO;
 import ar.com.vault.exception.DomainEntityNotFound;
+import ar.com.vault.repository.DepartmentRepository;
 import ar.com.vault.repository.EmployeeRepository;
 import ar.com.vault.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,10 +31,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private final JobRepository jobRepository;
 
+    private final DepartmentRepository departmentRepository;
+
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, JobRepository jobRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, JobRepository jobRepository, DepartmentRepository departmentRepository) {
         this.employeeRepository = employeeRepository;
         this.jobRepository = jobRepository;
+        this.departmentRepository = departmentRepository;
     }
 
     @Override
@@ -41,8 +48,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee save(@Valid Employee cart) {
-        return employeeRepository.save(cart);
+    public Employee save(@Valid Employee employee) {
+        return employeeRepository.save(employee);
     }
 
     @Override
@@ -50,7 +57,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee e = this.employeeRepository.findById(employeeId).orElseThrow(() -> new DomainEntityNotFound("No se encontró el Empleado con id: " + employeeId));
 
         this.mapFromClientDto(e, dto);
-        return e;
+        return employeeRepository.save(e);
     }
 
     @Override
@@ -61,6 +68,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Page<Employee> search(String jobId, Long managerId, String lastname, int page, int size) {
+
         Pageable pageable = PageRequest.of(page, size);
         Page<Employee> employeePage = this.employeeRepository.search(jobId, managerId, lastname, pageable);
 
@@ -101,8 +109,17 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setSalary(dto.getSalary());
         employee.setCommisionPct(dto.getCommisionPct());
 
-        employee.setJob(this.jobRepository.findById(dto.getJobId()).get());
+        Job job = this.jobRepository.findById(dto.getJobId()).orElseThrow(() -> new DomainEntityNotFound("No se encontró el Job con id: " + dto.getJobId()));
+        employee.setJob(job);
 
+        if(dto.getManagerId() != null){
+            Employee manager = this.employeeRepository.findById(dto.getManagerId()).orElseThrow(() -> new DomainEntityNotFound("No se encontró el Manager con id: " + dto.getManagerId()));
+            employee.setManager(manager);
+        }
+        if(dto.getDepartmentId() != null) {
+            Department department = this.departmentRepository.findById(dto.getDepartmentId()).orElseThrow(() -> new DomainEntityNotFound("No se encontró el Departamento con id: " + dto.getDepartmentId()));
+            employee.setDepartment(department);
+        }
         return employee;
     }
 }

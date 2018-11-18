@@ -1,7 +1,13 @@
 package ar.com.vault.dto;
 
+import ar.com.vault.domain.Department;
+import ar.com.vault.domain.Employee;
+import ar.com.vault.domain.Job;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
@@ -36,7 +42,13 @@ public class EmployeeClientDto {
     @ApiModelProperty(notes = "El Id del Job", required = true)
     private String jobId;
 
-    public EmployeeClientDto(String firstname, @NotNull String lastname, @NotNull String email, String phoneNumber, @NotNull Date hireDate, Double salary, Double commisionPct, String jobId) {
+    @ApiModelProperty(notes = "El Id del Manager")
+    private Long managerId;
+
+    @ApiModelProperty(notes = "El Id del Departamento")
+    private Long departmentId;
+
+    public EmployeeClientDto(String firstname, @NotNull String lastname, @NotNull String email, String phoneNumber, @NotNull Date hireDate, Double salary, Double commisionPct, String jobId, Long managerId, Long departmentId) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -45,6 +57,8 @@ public class EmployeeClientDto {
         this.salary = salary;
         this.commisionPct = commisionPct;
         this.jobId = jobId;
+        this.managerId = managerId;
+        this.departmentId = departmentId;
     }
 
     public EmployeeClientDto(){
@@ -112,5 +126,21 @@ public class EmployeeClientDto {
 
     public void setJobId(String jobId) {
         this.jobId = jobId;
+    }
+
+    public Long getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Long managerId) {
+        this.managerId = managerId;
+    }
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
     }
 }
