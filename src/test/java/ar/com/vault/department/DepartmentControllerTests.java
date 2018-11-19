@@ -51,4 +51,27 @@ public class DepartmentControllerTests extends AbstractIntegrationTest {
         ;
     }
 
+    @Test
+    public void testFailure() throws Exception {
+        Location l1 = this.locationRepository.findAll().iterator().next();
+
+        Department d1 = this.departmentRepository.save(new Department("Ventas", null, l1));
+        Job j1 = this.jobRepository.save(new Job("TECH-LEAD", "Líder Técnico", 100d, 1000d));
+        Employee e1 = this.employeeRepository.save(new Employee("Pepe", "Rodriguez", "pepe@gmail.com", "1564646464", new Date(118, 11, 1), 30000d, 1d, null, j1, d1));
+
+        Double salaryAverage = this.employeeRepository.salaryAverage(l1.getId());
+
+        assert salaryAverage > 1500; //Si es <1000 inserta en cualquier fecha
+
+        DepartmentClientDto dto = new DepartmentClientDto("Sistemas", e1.getId(), l1.getId());
+
+        String cartJson = json(dto);
+
+        //Create new employee
+        this.mockMvc.perform(
+                post("/departments")
+                        .contentType(contentType).content(cartJson))
+                .andExpect(status().isBadRequest())
+        ;
+    }
 }
