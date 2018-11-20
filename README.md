@@ -32,7 +32,7 @@ Los tests se pueden ejecutar directamente por separado con gradle ejecutando la 
 ./gradlew check
 ```
 
-Para ejecutar tests interactivos con la API REST se puede utilizar la interface de Swagger levantando la aplicación (jar) y luego ingresando desde un browser a la dirección http://localhost:8080/swagger-ui.html . Allí se visualizarán toda la interfaz expuesta por la API para interactuar con la misma y reallizar pruebas más manuales. Cabe destacar que en la consola se loguean los registros de las distintas entidades que se crean en con el seeder en caso de necesitar los IDs para ingresar en los argumentos para invocar dichos métodos de la página de swagger.
+Para ejecutar tests interactivos con la API REST se puede utilizar la interface de Swagger levantando la aplicación (jar) y luego ingresando desde un browser a la dirección http://localhost:8080/swagger-ui.html . Allí se visualizará toda la interfaz expuesta por la API para interactuar con la misma y reallizar pruebas más manuales. Cabe destacar que en la consola se loguean los registros de las distintas entidades que se crean con el seeder en caso de necesitar los IDs para ingresar en los argumentos para invocar dichos métodos de la página de swagger.
 
 ## Built with
 
